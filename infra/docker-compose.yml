@@ -9,7 +9,7 @@ services:
       - ./.env
 
   backend:
-    image: chaplinskiy/foodgram_backend
+    image: chaplinskiy/foodgram_backend:latest
     restart: always
     volumes:
       - static_value:/backend/static/
@@ -20,7 +20,7 @@ services:
       - ./.env
 
   frontend:
-    image: chaplinskiy/foodgram_frontend
+    image: chaplinskiy/foodgram_frontend:latest
     # build:
     #   context: ../frontend
     #   dockerfile: Dockerfile
