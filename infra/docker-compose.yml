@@ -23,7 +23,7 @@ services:
     image: chaplinskiy/foodgram_frontend:latest
     # build:
     #   context: ../frontend
-    #   dockerfile: Dockerfile
+      # dockerfile: Dockerfile
     volumes:
       - ../frontend/:/app/result_build/
 
@@ -46,3 +46,4 @@ volumes:
   postgres_data:
   static_value:
   media_value:
+
