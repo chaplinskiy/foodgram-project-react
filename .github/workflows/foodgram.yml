@@ -74,7 +74,11 @@ jobs:
             echo POSTGRES_USER=${{ secrets.POSTGRES_USER }} >> .env
             echo POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} >> .env
             echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env
-            sudo docker-compose up -d 
+            sudo docker-compose up -d
+            sudo docker exec -it chaplinskiy_backend_1 python manage.py migrate --noinput
+            sudo docker exec -it chaplinskiy_backend_1 python manage.py createsuperuser --email chaplinskiy@ya.ru --username imaroot --first_name huy --last_name prostoy --no-input
+            sudo docker exec -it chaplinskiy_backend_1 python manage.py loaddata data/fixtures.json --noinput
+            sudo docker exec -it chaplinskiy_backend_1 python manage.py collectstatic --noinput
   
   send_message:
     if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
