@@ -79,7 +79,11 @@ jobs:
             sudo docker exec chaplinskiy_backend_1 python manage.py migrate --no-input
             sudo docker exec chaplinskiy_backend_1 python manage.py createsuperuser --email ${{ secrets.SUPERUSER_EMAIL }} --username ${{ secrets.SUPERUSER_USERNAME }} --first_name ${{ secrets.SUPERUSER_FIRSTNAME }} --last_name ${{ secrets.SUPERUSER_LASTNAME }} --no-input
             sudo docker exec chaplinskiy_backend_1 python manage.py collectstatic --no-input
-            sudo docker exec chaplinskiy_backend_1 python manage.py loaddata data/fixtures.json --no-input
+            sudo docker exec chaplinskiy_backend_1 python manage.py add_tags --no-input
+            sudo docker exec chaplinskiy_backend_1 python manage.py add_users --no-input
+            sudo docker exec chaplinskiy_backend_1 python manage.py add_ingredients --no-input
+            sudo docker exec chaplinskiy_backend_1 python manage.py add_recipes --no-input
+            
   
   send_message:
     if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
