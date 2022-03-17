@@ -79,8 +79,8 @@ jobs:
             sudo docker exec chaplinskiy_backend_1 python manage.py migrate --no-input
             sudo docker exec chaplinskiy_backend_1 python manage.py createsuperuser --email ${{ secrets.SUPERUSER_EMAIL }} --username ${{ secrets.SUPERUSER_USERNAME }} --first_name ${{ secrets.SUPERUSER_FIRSTNAME }} --last_name ${{ secrets.SUPERUSER_LASTNAME }} --no-input
             sudo docker exec chaplinskiy_backend_1 python manage.py collectstatic --no-input
-            sudo docker exec chaplinskiy_backend_1 python manage.py add_tag
             sudo docker exec chaplinskiy_backend_1 python manage.py add_users
+            sudo docker exec chaplinskiy_backend_1 python manage.py add_tag
             sudo docker exec chaplinskiy_backend_1 python manage.py add_ingredients
             sudo docker exec chaplinskiy_backend_1 python manage.py add_recipes
             
