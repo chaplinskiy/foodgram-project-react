@@ -8,9 +8,7 @@ SECRET_KEY = os.getenv(
 )
 
 DEBUG = os.getenv('DEBUG', default=False)
-# DEBUG = True
 
-# ALLOWED_HOSTS = []
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', default='*').split(',')
 
 INSTALLED_APPS = [
@@ -159,7 +157,6 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # https://stackoverflow.com/a/62929967/4629790
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = '587'
