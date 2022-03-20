@@ -66,15 +66,15 @@ jobs:
             sudo docker-compose stop
             sudo docker-compose rm backend
             touch .env
-            echo ALLOWED_HOSTS=${{ secrets.ALLOWED_HOSTS }} >> .env
-            echo DB_ENGINE=${{ secrets.DB_ENGINE }} >> .env
-            echo DB_HOST=${{ secrets.DB_HOST }} >> .env
-            echo DB_NAME=${{ secrets.DB_NAME }} >> .env
-            echo DB_PORT=${{ secrets.DB_PORT }} >> .env
-            echo DEBUG=${{ secrets.DEBUG }} >> .env
-            echo POSTGRES_USER=${{ secrets.POSTGRES_USER }} >> .env
-            echo POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} >> .env
-            echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env
+            echo ALLOWED_HOSTS=${{ secrets.ALLOWED_HOSTS }} >| .env
+            echo DB_ENGINE=${{ secrets.DB_ENGINE }} >| .env
+            echo DB_HOST=${{ secrets.DB_HOST }} >| .env
+            echo DB_NAME=${{ secrets.DB_NAME }} >| .env
+            echo DB_PORT=${{ secrets.DB_PORT }} >| .env
+            echo DEBUG=${{ secrets.DEBUG }} >| .env
+            echo POSTGRES_USER=${{ secrets.POSTGRES_USER }} >| .env
+            echo POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} >| .env
+            echo SECRET_KEY=${{ secrets.SECRET_KEY }} >| .env
             sudo docker-compose up -d
             sudo docker exec chaplinskiy_backend_1 python manage.py migrate --no-input
             sudo docker exec chaplinskiy_backend_1 python manage.py createsuperuser --email ${{ secrets.SUPERUSER_EMAIL }} --username ${{ secrets.SUPERUSER_USERNAME }} --first_name ${{ secrets.SUPERUSER_FIRSTNAME }} --last_name ${{ secrets.SUPERUSER_LASTNAME }} --no-input
