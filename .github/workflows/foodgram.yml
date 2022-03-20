@@ -61,9 +61,10 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
           script: |
-            # sudo docker-compose down -v
+            sudo docker-compose down -v
+            sudo docker system prune -af --volumes
+            # sudo docker-compose stop
             sudo docker pull ${{ secrets.DOCKER_USERNAME }}/foodgram_backend:latest
-            sudo docker-compose stop
             sudo docker-compose rm backend
             touch .env
             echo ALLOWED_HOSTS=${{ secrets.ALLOWED_HOSTS }} >| .env
