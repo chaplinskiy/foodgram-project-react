@@ -142,7 +142,8 @@ temp/
 # media/
 # static/
 
-# local dev stuff
+# local stuff
 playground.py
 users_recipes.numbers
+.DS_Store/
 .DS_Store
