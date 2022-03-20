@@ -53,6 +53,15 @@ jobs:
     runs-on: ubuntu-latest
     needs: build_and_push_to_docker_hub
     steps:
+      - name: Copy configuration files to remote target
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          key: ${{ secrets.SSH_KEY }}
+          passphrase: ${{ secrets.PASSPHRASE }}
+          source: 'infra/.dockerignore,infra/docker-compose.yml,infra/nginx.conf'
+          target: '~'
       - name: Executing remote ssh commands to deploy
         uses: appleboy/ssh-action@master
         with:
