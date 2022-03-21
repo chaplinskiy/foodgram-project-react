@@ -60,7 +60,7 @@ jobs:
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
-          source: 'infra/*'
+          source: '/infra/*'
           target: '/home/chaplinskiy/'
           strip_components: 1
           # debug: true
