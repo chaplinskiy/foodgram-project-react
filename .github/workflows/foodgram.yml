@@ -68,7 +68,6 @@ jobs:
           src: './infra/*'
           host: ${{ secrets.HOST }}
           remote: '~'
-          port: ${{ secrets.SSH_PORT }}
           user: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
       - name: Executing remote ssh commands to deploy
