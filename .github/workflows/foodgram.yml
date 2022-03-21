@@ -60,8 +60,8 @@ jobs:
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
-          source: 'tests/a.txt,tests/b.txt'
-          target: '~/'
+          source: 'infra/*'
+          target: '/home/chaplinskiy/'
           strip_components: 1
           # debug: true
       # - name: Executing remote ssh commands to deploy
