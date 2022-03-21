@@ -54,23 +54,15 @@ jobs:
     # needs: build_and_push_to_docker_hub
     steps:
       - name: Copy configuration files to remote target
-        # uses: appleboy/scp-action@master
-        # with:
-        #   host: ${{ secrets.HOST }}
-        #   username: ${{ secrets.USER }}
-        #   key: ${{ secrets.SSH_KEY }}
-        #   passphrase: ${{ secrets.PASSPHRASE }}
-        #   source: 'infra/*'
-        #   target: '~/'
-        #   strip_components: 1
-        uses: cross-the-world/scp-pipeline@master
+        uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.HOST }}
-          user: ${{ secrets.USER }}
+          username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
-          connect_timeout: 10s
-          local: './infra/*'
-          remote: '~/'
+          passphrase: ${{ secrets.PASSPHRASE }}
+          source: '.gitignore'
+          target: '~/'
+          strip_components: 1
       # - name: Executing remote ssh commands to deploy
       #   uses: appleboy/ssh-action@master
       #   with:
