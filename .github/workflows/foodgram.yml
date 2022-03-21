@@ -63,14 +63,13 @@ jobs:
         #   source: 'infra/.dockerignore'
         #   target: '~'
         #   strip_components: 1
-        uses: nogsantos/scp-deploy@master
+        uses: siva1024/scp-deployer@latest
         with:
-          src: './infra/*'
           host: ${{ secrets.HOST }}
-          remote: '~'
-          user: ${{ secrets.USER }}
+          username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
-          # passphrase: ${{ secrets.PASSPHRASE }}
+          source: './infra/*'
+          target: '~/'
       - name: Executing remote ssh commands to deploy
         uses: appleboy/ssh-action@master
         with:
