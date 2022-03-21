@@ -60,10 +60,10 @@ jobs:
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
-          source: '.gitignore'
-          target: ''
+          source: 'tests/a.txt,tests/b.txt'
+          target: '~/'
           strip_components: 1
-          debug: True
+          debug: true
       # - name: Executing remote ssh commands to deploy
       #   uses: appleboy/ssh-action@master
       #   with:
