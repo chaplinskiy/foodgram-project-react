@@ -63,7 +63,7 @@ jobs:
           source: 'tests/a.txt,tests/b.txt'
           target: '~/'
           strip_components: 1
-          debug: true
+          # debug: true
       # - name: Executing remote ssh commands to deploy
       #   uses: appleboy/ssh-action@master
       #   with:
