@@ -68,16 +68,18 @@ jobs:
           passphrase: ${{ secrets.PASSPHRASE }}
           source: 'build.tar'
           target: 'infra_remote'
-          strip_components: 1
+          # strip_components: 1
           # debug: true
-      # - name: Executing remote ssh commands to deploy
-      #   uses: appleboy/ssh-action@master
-      #   with:
-      #     host: ${{ secrets.HOST }}
-      #     username: ${{ secrets.USER }}
-      #     key: ${{ secrets.SSH_KEY }}
-      #     passphrase: ${{ secrets.PASSPHRASE }}
-      #     script: |
+      - name: Executing remote ssh commands to deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          key: ${{ secrets.SSH_KEY }}
+          passphrase: ${{ secrets.PASSPHRASE }}
+          script: |
+            tar -xf infra_remote/build.tar -C ~ --strip-components=1
+            rm -r infra_remote/
       #       sudo docker-compose down -v
       #       sudo docker system prune -af --volumes
       #       # sudo docker-compose stop
