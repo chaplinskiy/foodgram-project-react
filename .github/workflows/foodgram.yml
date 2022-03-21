@@ -63,14 +63,7 @@ jobs:
         #   source: 'infra/.dockerignore'
         #   target: '~'
         #   strip_components: 1
-        # uses: siva1024/scp-deployer@latest
-        # with:
-        #   host: ${{ secrets.HOST }}
-        #   username: ${{ secrets.USER }}
-        #   key: ${{ secrets.SSH_KEY }}
-        #   source: 'infra/*'
-        #   target: '~'
-        uses: siva1024/scp-deployer@develop
+        uses: siva1024/scp-deployer@latest
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
