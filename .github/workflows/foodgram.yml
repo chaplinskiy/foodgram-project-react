@@ -58,7 +58,7 @@ jobs:
         run: |
           mkdir ../build
           cp -r ./infra/. ../build
-          tar -cvf build.tar ../build/.
+          tar -cvf build.tar ../build
       - name: Copy configuration files to remote target
         uses: appleboy/scp-action@master
         with:
@@ -68,7 +68,7 @@ jobs:
           passphrase: ${{ secrets.PASSPHRASE }}
           source: 'build.tar'
           target: 'infra_remote'
-          # strip_components: 1
+          strip_components: 1
           # debug: true
       # - name: Executing remote ssh commands to deploy
       #   uses: appleboy/ssh-action@master
