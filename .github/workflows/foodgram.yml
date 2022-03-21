@@ -68,7 +68,7 @@ jobs:
           passphrase: ${{ secrets.PASSPHRASE }}
           source: 'deploy.tar'
           target: 'infra'
-          strip_components: 1
+          # strip_components: 1
           # debug: true
       # - name: Executing remote ssh commands to deploy
       #   uses: appleboy/ssh-action@master
