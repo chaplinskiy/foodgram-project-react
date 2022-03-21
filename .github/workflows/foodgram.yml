@@ -63,7 +63,7 @@ jobs:
           source: '.gitignore'
           target: ''
           strip_components: 1
-          debug: true
+          debug: True
       # - name: Executing remote ssh commands to deploy
       #   uses: appleboy/ssh-action@master
       #   with:
