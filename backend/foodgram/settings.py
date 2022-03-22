@@ -42,9 +42,9 @@ MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
-INTERNAL_IPS = [
-    '127.0.0.1',
-]
+# INTERNAL_IPS = [
+#     '127.0.0.1',
+# ]
 
 ROOT_URLCONF = 'foodgram.urls'
 
@@ -110,15 +110,16 @@ REST_FRAMEWORK = {
         'django_filters.rest_framework.DjangoFilterBackend'
     ],
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny',
+        # 'rest_framework.permissions.AllowAny',
         # а было IsAuthenticated:
         # 'rest_framework.permissions.IsAuthenticated',
-        # 'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     ],
 }
 
 DJOSER = {
     'HIDE_USERS': False,
+    'LOGIN_FIELD': 'email',
     'PERMISSIONS': {
         # 'current_user': ['rest_framework.permissions.IsAuthenticated'],
         # 'set_password': ['api.custom_permissions.IsStaffOrOwnerOrReadOnly'],
