@@ -151,4 +151,4 @@ users_recipes.numbers
 .DS_Store
 
 # local migrations backups
-migrations/backup/
+backup/
