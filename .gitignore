@@ -149,4 +149,4 @@ users_recipes.numbers
 .DS_Store
 
 # local migrations
-migrations/backup/
+**/migrations/backup/
