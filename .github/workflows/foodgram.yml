@@ -98,14 +98,14 @@ jobs:
             echo EMAIL_HOST_USER=${{ secrets.EMAIL_HOST_USER }} >> .env
             echo EMAIL_HOST_PASSWORD=${{ secrets.EMAIL_HOST_PASSWORD }} >> .env
             sudo docker-compose up -d
-            sudo docker exec chaplinskiy_backend_1 python manage.py makemigrations --no-input
-            sudo docker exec chaplinskiy_backend_1 python manage.py migrate --no-input
-            sudo docker exec chaplinskiy_backend_1 python manage.py createsuperuser --email ${{ secrets.SUPERUSER_EMAIL }} --username ${{ secrets.SUPERUSER_USERNAME }} --first_name ${{ secrets.SUPERUSER_FIRSTNAME }} --last_name ${{ secrets.SUPERUSER_LASTNAME }} --no-input
-            sudo docker exec chaplinskiy_backend_1 python manage.py collectstatic --no-input
-            sudo docker exec chaplinskiy_backend_1 python manage.py add_users
-            sudo docker exec chaplinskiy_backend_1 python manage.py add_tag
-            sudo docker exec chaplinskiy_backend_1 python manage.py add_ingredients
-            sudo docker exec chaplinskiy_backend_1 python manage.py add_recipes
+            # sudo docker exec chaplinskiy_backend_1 python manage.py makemigrations --no-input
+            # sudo docker exec chaplinskiy_backend_1 python manage.py migrate --no-input
+            # sudo docker exec chaplinskiy_backend_1 python manage.py createsuperuser --email ${{ secrets.SUPERUSER_EMAIL }} --username ${{ secrets.SUPERUSER_USERNAME }} --first_name ${{ secrets.SUPERUSER_FIRSTNAME }} --last_name ${{ secrets.SUPERUSER_LASTNAME }} --no-input
+            # sudo docker exec chaplinskiy_backend_1 python manage.py collectstatic --no-input
+            # sudo docker exec chaplinskiy_backend_1 python manage.py add_users
+            # sudo docker exec chaplinskiy_backend_1 python manage.py add_tag
+            # sudo docker exec chaplinskiy_backend_1 python manage.py add_ingredients
+            # sudo docker exec chaplinskiy_backend_1 python manage.py add_recipes
             
   
   send_message:
