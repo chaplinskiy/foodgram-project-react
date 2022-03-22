@@ -8,7 +8,7 @@ urlpatterns = [
     path('api/', include('api.urls', namespace='api')),
 ]
 
-if settings.DEBUG:
+if settings.DEBUG is True:
     import debug_toolbar
     urlpatterns += (path('__debug__/', include(debug_toolbar.urls)),)
     urlpatterns += static(
