@@ -100,7 +100,7 @@ class Subscription(models.Model):
         constraints = [
             models.UniqueConstraint(
                 fields=['following', 'follower'],
-                name='unique_list'
+                name='unique_subscription_list'
             ),
             models.CheckConstraint(
                 check=~Q(following=F('follower')),

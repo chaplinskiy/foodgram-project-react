@@ -136,7 +136,7 @@ class RecipeTag(RecipeAux):
         constraints = [
             models.UniqueConstraint(
                 fields=('recipe', 'tag'),
-                name='unique_list'
+                name='unique_recipetag_list'
             )
         ]
         verbose_name = 'Тег/рецепт'
