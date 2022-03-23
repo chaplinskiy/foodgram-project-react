@@ -142,6 +142,7 @@ temp/
 
 # media + static
 static.tar
+static_backup/
 
 # local stuff
 playground.py
