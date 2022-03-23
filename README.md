@@ -1,6 +1,7 @@
+![foodgram](https://github.com/chaplinskiy/foodgram-project-react/actions/workflows/foodgram.yml/badge.svg)
+
 # chaplinskiy/foodgram_project_react
-![foodgram](https://github.com/chaplinskiy/foodgram-project-react/workflows/foodgram.yml/badge.svg)
-## Дипломный проект факультета бэкенд-разработки [Яндекс.Практикума](https://practicum.yandex.ru/backend-developer)
+Дипломный проект факультета бэкенд-разработки [Яндекс.Практикума](https://practicum.yandex.ru/backend-developer)
 
 ### Описание:
 С помощью сервиса Foodgram можно публиковать рецепты, подписываться на других пользователей, фильтровать рецепты по тегам, добавлять понравившиеся рецепты в избранное и скачивать файл со списком продуктов.
