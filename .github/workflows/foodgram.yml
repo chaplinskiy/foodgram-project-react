@@ -60,6 +60,9 @@ jobs:
           cp -r ./infra/. ../build
           cp ./backend/dump.json ../build
           tar -cvf build.tar ../build
+          mkdir ../all_the_static
+          cp -r ./static/. ../all_the_static
+          tar -cvf static.tar ../all_the_static
       - name: Copy configuration files to remote target
         uses: appleboy/scp-action@master
         with:
@@ -69,8 +72,15 @@ jobs:
           passphrase: ${{ secrets.PASSPHRASE }}
           source: 'build.tar'
           target: 'infra_remote'
-          # strip_components: 1
-          # debug: true
+      - name: Copy static files to remote target
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          key: ${{ secrets.SSH_KEY }}
+          passphrase: ${{ secrets.PASSPHRASE }}
+          source: 'static.tar'
+          target: '~'
       - name: Executing remote ssh commands to deploy
         uses: appleboy/ssh-action@master
         with:
@@ -81,9 +91,10 @@ jobs:
           script: |
             tar -xf infra_remote/build.tar -C ~ --strip-components=1
             rm -r infra_remote/
+            sudo tar -xf static.tar -C /home/static --strip-components=1
+            rm static.tar
             sudo docker-compose down -v
             sudo docker system prune -af --volumes
-            # sudo docker-compose stop
             sudo docker pull ${{ secrets.DOCKER_USERNAME }}/foodgram_backend:latest
             sudo docker-compose rm backend
             touch .env
@@ -101,12 +112,6 @@ jobs:
             sudo docker-compose up -d
             sudo docker exec backend python manage.py makemigrations --no-input
             sudo docker exec backend python manage.py migrate --no-input
-            # sudo docker exec backend python manage.py createsuperuser --email ${{ secrets.SUPERUSER_EMAIL }} --username ${{ secrets.SUPERUSER_USERNAME }} --first_name ${{ secrets.SUPERUSER_FIRSTNAME }} --last_name ${{ secrets.SUPERUSER_LASTNAME }} --no-input
-            # sudo docker exec backend python manage.py add_users
-            # sudo docker exec backend python manage.py add_tag
-            # sudo docker exec backend python manage.py add_ingredients
-            # sudo docker exec backend python manage.py add_recipes
-            # sudo docker exec backend python manage.py shell -c 'from django.shortcuts import get_object_or_404; from django.contrib.auth import get_user_model; User=get_user_model(); superuser=get_object_or_404(User, username="${{ secrets.SUPERUSER_USERNAME }}"); superuser.set_password("${{ secrets.SUPERUSER_PASSWORD }}"); superuser.role="admin"; superuser.save()'
             sudo docker exec backend python manage.py shell -c 'from django.contrib.contenttypes.models import ContentType; ContentType.objects.all().delete(); exit();'
             sudo docker exec backend python manage.py loaddata dump.json
             sudo docker exec backend python manage.py collectstatic --no-input

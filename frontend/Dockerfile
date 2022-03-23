@@ -1,9 +1,7 @@
 # build env
-# FROM node:13.12.0-alpine as build
 FROM node:13.14.0-alpine as build
 WORKDIR /app
 COPY package*.json ./
-# RUN npm install
 RUN npm install --no-package-lock
 COPY . ./
 RUN npm run build

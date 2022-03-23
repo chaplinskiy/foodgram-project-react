@@ -142,8 +142,6 @@ temp/
 
 # media + static
 static.tar
-# media/
-# static/
 
 # local stuff
 playground.py
@@ -153,5 +151,3 @@ users_recipes.numbers
 
 # local migrations backups
 backup/
-
-# local sta
