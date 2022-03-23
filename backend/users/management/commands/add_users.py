@@ -17,15 +17,10 @@ class Command(BaseCommand):
                     User.objects.get_or_create(
                         username=row[0],
                         password=row[1],
-                        # password=User.set_password(row[1]),
-                        # password=User.set_password(
-                        #     self, raw_password=row[1]
-                        # ),
                         email=row[2],
                         first_name=row[3],
                         last_name=row[4]
                     )
-                    # User.set_password(self, raw_password=User.password)
         for user in User.objects.all():
             user.set_password(user.password)
             user.save()
