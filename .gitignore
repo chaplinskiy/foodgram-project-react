@@ -141,6 +141,7 @@ dmypy.json
 temp/
 
 # media + static
+static.tar
 # media/
 # static/
 
@@ -152,3 +153,5 @@ users_recipes.numbers
 
 # local migrations backups
 backup/
+
+# local sta
