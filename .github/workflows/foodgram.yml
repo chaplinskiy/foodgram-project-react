@@ -58,14 +58,14 @@ jobs:
         run: |
           mkdir ../build
           cp -r ./infra/. ../build
-          cp ./backend/dump.json ../build
+          cp ./backend/data/dump.json ../build
           tar -cvf build.tar ../build
           # mkdir ../all_the_static
           # cp -r ./static/. ../all_the_static
           # tar -cvf static.tar ../all_the_static
-          mkdir ../backend_static
-          cp -r ./backend/static/. ../backend_static
-          tar -cvf static.tar ../backend_static
+          # mkdir ../backend_static
+          # cp -r ./backend/static/. ../backend_static
+          # tar -cvf static.tar ../backend_static
       - name: Copy configuration files to remote target
         uses: appleboy/scp-action@master
         with:
@@ -75,15 +75,15 @@ jobs:
           passphrase: ${{ secrets.PASSPHRASE }}
           source: 'build.tar'
           target: 'infra_remote'
-      - name: Copy backend/static files to remote target
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USER }}
-          key: ${{ secrets.SSH_KEY }}
-          passphrase: ${{ secrets.PASSPHRASE }}
-          source: 'static.tar'
-          target: '~'
+      # - name: Copy backend/static files to remote target
+      #   uses: appleboy/scp-action@master
+      #   with:
+      #     host: ${{ secrets.HOST }}
+      #     username: ${{ secrets.USER }}
+      #     key: ${{ secrets.SSH_KEY }}
+      #     passphrase: ${{ secrets.PASSPHRASE }}
+      #     source: 'static.tar'
+      #     target: '~'
       - name: Executing remote ssh commands to deploy
         uses: appleboy/ssh-action@master
         with:
@@ -94,8 +94,8 @@ jobs:
           script: |
             tar -xf infra_remote/build.tar -C ~ --strip-components=1
             rm -r infra_remote/
-            sudo tar -xf static.tar -C /home/static --strip-components=1
-            rm static.tar
+            # sudo tar -xf static.tar -C /home/static --strip-components=1
+            # rm static.tar
             sudo docker-compose down -v
             sudo docker system prune -af --volumes
             sudo docker pull ${{ secrets.DOCKER_USERNAME }}/foodgram_backend:latest
@@ -116,7 +116,7 @@ jobs:
             sudo docker exec backend python manage.py makemigrations --no-input
             sudo docker exec backend python manage.py migrate --no-input
             sudo docker exec backend python manage.py shell -c 'from django.contrib.contenttypes.models import ContentType; ContentType.objects.all().delete(); exit();'
-            sudo docker exec backend python manage.py loaddata dump.json
+            sudo docker exec backend python manage.py loaddata data/dump.json
             sudo docker exec backend python manage.py collectstatic --no-input
             sudo docker exec backend python manage.py createsuperuser --email im@review.er --username imareviewer --first_name Йа --last_name Ревьюер --no-input
             sudo docker exec backend python manage.py shell -c 'from django.shortcuts import get_object_or_404; from django.contrib.auth import get_user_model; User=get_user_model(); superuser=get_object_or_404(User, username="imareviewer"); superuser.set_password("Q1w2e3r4t5y"); superuser.role="admin"; superuser.save()'
