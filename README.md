@@ -33,6 +33,26 @@ Postgres
     sudo chmod +x /usr/local/bin/docker-compose
     ```
 - отредактировать файл ```.github/workflows/foodgram.yml``` в соответствии со своими настройками, создать соответствующие Гитхаб-секретики
+- положить в директорию ```/home/static``` файлы статики для фронтенда и бэкенда (они понадобятся при деплое контейнера ```nginx```) – файловая структура должна выглядеть вот так:
+
+```
+/home
+├── <your_home_directory>
+│   ├── docker-compose.yml
+│   ├── nginx.conf
+├── docs
+│   ├── openapi-schema.yml
+│   └── redoc.html
+├── frontend
+│   └── build
+└── static
+    ├── admin
+    ├── css
+    ├── debug_toolbar
+    ├── js
+    ├── media
+    └── rest_framework
+```
 - Сделать 
     ```bash
     git commit && git push
@@ -58,9 +78,9 @@ password: Q1w2e3r4t5y
 ```
 
 ### Демо рабочего проекта:
-[51.250.64.153](http://51.250.64.153/)
+[51.250.70.143](http://51.250.70.143/)
 
-(*адрес работает до первой перезагрузки, естественно*)
+(*адрес может спонтанно меняться, ибо автор не озаботился прикупить нормальный ```ip```*)
 
 ### Другие проекты автора:
 https://github.com/chaplinskiy/
