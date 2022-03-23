@@ -33,26 +33,26 @@ Postgres
     sudo chmod +x /usr/local/bin/docker-compose
     ```
 - отредактировать файл ```.github/workflows/foodgram.yml``` в соответствии со своими настройками, создать соответствующие Гитхаб-секретики
-- положить в директорию ```/home/static``` файлы статики для фронтенда и бэкенда (они понадобятся при деплое контейнера ```nginx```) – файловая структура должна выглядеть вот так:
+- положить в директорию ```/home/static``` файлы статики для фронтенда, бэкенда и ```API``` (они понадобятся при деплое контейнера ```nginx```) – файловая структура должна выглядеть вот так:
 
-```
-/home
-├── <your_home_directory>
-│   ├── docker-compose.yml
-│   ├── nginx.conf
-├── docs
-│   ├── openapi-schema.yml
-│   └── redoc.html
-├── frontend
-│   └── build
-└── static
-    ├── admin
-    ├── css
-    ├── debug_toolbar
-    ├── js
-    ├── media
-    └── rest_framework
-```
+    ```
+    /home
+    ├── <your_home_directory>
+    │   ├── docker-compose.yml
+    │   ├── nginx.conf
+    ├── docs
+    │   ├── openapi-schema.yml
+    │   └── redoc.html
+    ├── frontend
+    │   └── build
+    └── static
+        ├── admin
+        ├── css
+        ├── debug_toolbar
+        ├── js
+        ├── media
+        └── rest_framework
+    ```
 - Сделать 
     ```bash
     git commit && git push
