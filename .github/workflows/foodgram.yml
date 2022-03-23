@@ -85,7 +85,7 @@ jobs:
             sudo docker system prune -af --volumes
             # sudo docker-compose stop
             sudo docker pull ${{ secrets.DOCKER_USERNAME }}/foodgram_backend:latest
-            # sudo docker-compose rm backend
+            sudo docker-compose rm backend
             touch .env
             echo ALLOWED_HOSTS=${{ secrets.ALLOWED_HOSTS }} >| .env
             echo DB_ENGINE=${{ secrets.DB_ENGINE }} >> .env
