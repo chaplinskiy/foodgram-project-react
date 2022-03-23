@@ -1,5 +1,5 @@
-# chaplinskiy/yamdb_final
-![workflow](https://github.com/chaplinskiy/foodgram-project-react/workflows/foodgram/badge.svg)
+# chaplinskiy/foodgram_project_react
+![foodgram](https://github.com/chaplinskiy/foodgram-project-react/workflows/foodgram.yml/badge.svg)
 ## Дипломный проект факультета бэкенд-разработки [Яндекс.Практикума](https://practicum.yandex.ru/backend-developer)
 
 ### Описание:
