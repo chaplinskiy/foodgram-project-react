@@ -118,6 +118,8 @@ jobs:
             sudo docker exec backend python manage.py shell -c 'from django.contrib.contenttypes.models import ContentType; ContentType.objects.all().delete(); exit();'
             sudo docker exec backend python manage.py loaddata dump.json
             sudo docker exec backend python manage.py collectstatic --no-input
+            sudo docker exec backend python manage.py createsuperuser --email im@review.er --username imareviewer --first_name Йа --last_name Ревьюер --no-input
+            sudo docker exec backend python manage.py shell -c 'from django.shortcuts import get_object_or_404; from django.contrib.auth import get_user_model; User=get_user_model(); superuser=get_object_or_404(User, username="imareviewer"); superuser.set_password("Q1w2e3r4t5y"); superuser.role="admin"; superuser.save()'
             
   
   send_message:
