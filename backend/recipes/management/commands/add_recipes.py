@@ -13,6 +13,8 @@ NUM_ROWS = 5
 
 # users = User.objects.order_by('?')[:NUM_ROWS]
 users = User.objects.all().order_by('?')
+# tags = Tag.objects.all()
+# tags = [1, 2, 3, 4]
 
 
 class Command(BaseCommand):
@@ -31,7 +33,9 @@ class Command(BaseCommand):
                         author=user,
                         cooking_time=row[1],
                         name=row[2],
-                        image=row[3],
-                        text=row[4]
+                        # image=row[3],
+                        text=row[4],
+                        # tags=random.choice(tags)
+                        # tags=Recipe.set([random.choice(tags)])
                     )
                     # user = users[0 + 1]

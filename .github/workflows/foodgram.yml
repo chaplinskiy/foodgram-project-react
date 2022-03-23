@@ -58,6 +58,7 @@ jobs:
         run: |
           mkdir ../build
           cp -r ./infra/. ../build
+          cp ./backend/dump.json ../build
           tar -cvf build.tar ../build
       - name: Copy configuration files to remote target
         uses: appleboy/scp-action@master
@@ -84,7 +85,7 @@ jobs:
             sudo docker system prune -af --volumes
             # sudo docker-compose stop
             sudo docker pull ${{ secrets.DOCKER_USERNAME }}/foodgram_backend:latest
-            sudo docker-compose rm backend
+            # sudo docker-compose rm backend
             touch .env
             echo ALLOWED_HOSTS=${{ secrets.ALLOWED_HOSTS }} >| .env
             echo DB_ENGINE=${{ secrets.DB_ENGINE }} >> .env
@@ -98,15 +99,17 @@ jobs:
             echo EMAIL_HOST_USER=${{ secrets.EMAIL_HOST_USER }} >> .env
             echo EMAIL_HOST_PASSWORD=${{ secrets.EMAIL_HOST_PASSWORD }} >> .env
             sudo docker-compose up -d
-            sudo docker exec chaplinskiy_backend_1 python manage.py makemigrations --no-input
-            sudo docker exec chaplinskiy_backend_1 python manage.py migrate --no-input
-            sudo docker exec chaplinskiy_backend_1 python manage.py createsuperuser --email ${{ secrets.SUPERUSER_EMAIL }} --username ${{ secrets.SUPERUSER_USERNAME }} --first_name ${{ secrets.SUPERUSER_FIRSTNAME }} --last_name ${{ secrets.SUPERUSER_LASTNAME }} --no-input
-            sudo docker exec chaplinskiy_backend_1 python manage.py collectstatic --no-input
-            sudo docker exec chaplinskiy_backend_1 python manage.py add_users
-            sudo docker exec chaplinskiy_backend_1 python manage.py add_tag
-            sudo docker exec chaplinskiy_backend_1 python manage.py add_ingredients
-            sudo docker exec chaplinskiy_backend_1 python manage.py add_recipes
-            sudo docker exec chaplinskiy_backend_1 python manage.py shell -c 'from django.shortcuts import get_object_or_404; from django.contrib.auth import get_user_model; User=get_user_model(); superuser=get_object_or_404(User, username="${{ secrets.SUPERUSER_USERNAME }}"); superuser.set_password("${{ secrets.SUPERUSER_PASSWORD }}"); superuser.save()'
+            sudo docker exec backend python manage.py makemigrations --no-input
+            sudo docker exec backend python manage.py migrate --no-input
+            # sudo docker exec backend python manage.py createsuperuser --email ${{ secrets.SUPERUSER_EMAIL }} --username ${{ secrets.SUPERUSER_USERNAME }} --first_name ${{ secrets.SUPERUSER_FIRSTNAME }} --last_name ${{ secrets.SUPERUSER_LASTNAME }} --no-input
+            # sudo docker exec backend python manage.py collectstatic --no-input
+            # sudo docker exec backend python manage.py add_users
+            # sudo docker exec backend python manage.py add_tag
+            # sudo docker exec backend python manage.py add_ingredients
+            # sudo docker exec backend python manage.py add_recipes
+            # sudo docker exec backend python manage.py shell -c 'from django.shortcuts import get_object_or_404; from django.contrib.auth import get_user_model; User=get_user_model(); superuser=get_object_or_404(User, username="${{ secrets.SUPERUSER_USERNAME }}"); superuser.set_password("${{ secrets.SUPERUSER_PASSWORD }}"); superuser.role="admin"; superuser.save()'
+            sudo docker exec backend python manage.py shell -c 'from django.contrib.contenttypes.models import ContentType; ContentType.objects.all().delete(); exit();'
+            sudo docker exec backend python manage.py loaddata dump.json
             
   
   send_message:
