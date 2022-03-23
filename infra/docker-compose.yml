@@ -12,7 +12,7 @@ services:
 
   backend:
     container_name: backend
-    # image: chaplinskiy/foodgram_backend:latest
+    image: chaplinskiy/foodgram_backend:latest
     restart: always
     # build:
     #   context: ../backend
