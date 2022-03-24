@@ -72,8 +72,7 @@ class UserViewSet(DjoserUserViewSet):
     @action(['get'], detail=False, permission_classes=[IsAuthenticated])
     def me(self, request, *args, **kwargs):
         self.get_object = self.get_instance
-        if request.method == 'GET':
-            return self.retrieve(request, *args, **kwargs)
+        return self.retrieve(request, *args, **kwargs)
 
 
 class IngredientViewSet(viewsets.ReadOnlyModelViewSet):

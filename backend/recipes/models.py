@@ -52,7 +52,7 @@ class Ingredient(models.Model):
 class Recipe(models.Model):
     author = models.ForeignKey(
         User, on_delete=models.CASCADE,
-        related_name='author',
+        related_name='recipes',
         verbose_name='Автор рецепта'
     )
     cooking_time = models.PositiveSmallIntegerField(
@@ -82,11 +82,11 @@ class Recipe(models.Model):
     )
     is_favorited = models.ManyToManyField(
         User, through='RecipeUser',
-        related_name='is_favorited'
+        related_name='favorited'
     )
     is_in_shopping_cart = models.ManyToManyField(
         User, through='RecipeUserCart',
-        related_name='is_in_shopping_cart'
+        related_name='recipes_in_shopping_cart'
     )
 
     class Meta:
@@ -119,6 +119,12 @@ class RecipeIngredientAmount(RecipeAux):
     )
 
     class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=('recipe', 'ingredient'),
+                name='unique_recipeingredientamount_list'
+            )
+        ]
         verbose_name = 'Количество/ингредиент'
         verbose_name_plural = 'Количества/ингредиент'
 
@@ -166,9 +172,19 @@ class RecipeUser(RecipeAux):
         return f'{self.recipe} {self.user}'
 
 
-class RecipeUserCart(RecipeUser):
+class RecipeUserCart(RecipeAux):
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE,
+        verbose_name='Пользователь'
+    )
 
     class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=('user', 'recipe'),
+                name='unique_recipeusercart'
+            )
+        ]
         ordering = ['-id']
         verbose_name = 'Список покупок/рецепт'
         verbose_name_plural = 'Списки покупок/рецепт'

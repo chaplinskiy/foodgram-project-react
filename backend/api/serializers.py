@@ -1,11 +1,14 @@
+from django.contrib.auth import get_user_model
+
+from djoser.serializers import UserSerializer, UserCreateSerializer
+
 from drf_extra_fields.fields import Base64ImageField
 
-from django.contrib.auth import get_user_model
-from djoser.serializers import UserSerializer, UserCreateSerializer
 from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
 from recipes.models import (Ingredient, Recipe, RecipeUser, RecipeUserCart,
                             RecipeIngredientAmount, Tag)
+
 from users.models import Subscription
 
 User = get_user_model()
