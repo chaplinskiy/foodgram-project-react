@@ -5,12 +5,10 @@ from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 
 from djoser.views import UserViewSet as DjoserUserViewSet
-
 from reportlab.lib.pagesizes import A4
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfgen.canvas import Canvas
-
 from rest_framework import filters, mixins, status, viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -20,8 +18,9 @@ from rest_framework.permissions import IsAuthenticated
 from recipes.models import (Ingredient, Recipe, RecipeIngredientAmount,
                             RecipeUser, RecipeUserCart, Tag)
 from users.models import Subscription
+
 from .custom_permissions import IsAuthorOrAdminOrReadOnly
-from .filters import RecipeFilterSet
+from .filters import IngredientSearchFilter, RecipeFilterSet
 from .pagination import FoodgramPageLimitPagination
 from .serializers import (CustomUserSerializer, IngredientSerializer,
                           RecipeCUDSerializer, RecipeListSerializer,
@@ -78,7 +77,7 @@ class UserViewSet(DjoserUserViewSet):
 class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Ingredient.objects.all()
     serializer_class = IngredientSerializer
-    filter_backends = (filters.SearchFilter,)
+    filter_backends = (IngredientSearchFilter,)
     search_fields = ('^name',)
 
 

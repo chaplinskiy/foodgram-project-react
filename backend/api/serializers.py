@@ -1,14 +1,12 @@
 from django.contrib.auth import get_user_model
 
 from djoser.serializers import UserSerializer, UserCreateSerializer
-
 from drf_extra_fields.fields import Base64ImageField
-
 from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
+
 from recipes.models import (Ingredient, Recipe, RecipeUser, RecipeUserCart,
                             RecipeIngredientAmount, Tag)
-
 from users.models import Subscription
 
 User = get_user_model()
@@ -124,6 +122,11 @@ class RecipeCUDSerializer(serializers.ModelSerializer):
         ingredients = data['ingredients']
         ingredients_list = []
         for ingredient in ingredients:
+            amount = ingredient['amount']
+            if int(amount) <= 0:
+                raise serializers.ValidationError({
+                    'amount': 'Should be greater than or equal to 1.'
+                })
             ingredient_id = ingredient['id']
             if ingredient_id in ingredients_list:
                 raise serializers.ValidationError({
@@ -143,6 +146,12 @@ class RecipeCUDSerializer(serializers.ModelSerializer):
                     'tags': 'Should be unique.'
                 })
             tags_list.append(tag)
+
+        cooking_time = data['cooking_time']
+        if int(cooking_time) <= 0:
+            raise serializers.ValidationError({
+                'cooking_time': 'Should be greater than or equal to 1.'
+            })
         return data
 
     @staticmethod

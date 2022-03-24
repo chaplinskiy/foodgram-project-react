@@ -3,6 +3,10 @@ from django_filters.rest_framework import FilterSet, filters
 from recipes.models import Recipe
 
 
+class IngredientSearchFilter(filters.SearchFilter):
+    search_param = 'name'
+
+
 class RecipeFilterSet(FilterSet):
     tags = filters.AllValuesMultipleFilter(field_name='tags__slug')
     is_favorited = filters.BooleanFilter(method='filter_is_favorited')

@@ -53,6 +53,7 @@ class Recipe(models.Model):
     author = models.ForeignKey(
         User, on_delete=models.CASCADE,
         related_name='recipes',
+        related_query_name='recipe',
         verbose_name='Автор рецепта'
     )
     cooking_time = models.PositiveSmallIntegerField(
@@ -82,11 +83,11 @@ class Recipe(models.Model):
     )
     is_favorited = models.ManyToManyField(
         User, through='RecipeUser',
-        related_name='favorited'
+        related_name='recipes_user',
     )
     is_in_shopping_cart = models.ManyToManyField(
         User, through='RecipeUserCart',
-        related_name='recipes_in_shopping_cart'
+        related_name='recipes_usercart'
     )
 
     class Meta:
@@ -100,6 +101,8 @@ class Recipe(models.Model):
 class RecipeAux(models.Model):
     recipe = models.ForeignKey(
         Recipe, on_delete=models.CASCADE,
+        # related_name='%(app_label)s_%(class)s_related',
+        # related_query_name='%(app_label)s_%(class)ss',
         verbose_name='Рецепт'
     )
 
@@ -155,7 +158,8 @@ class RecipeTag(RecipeAux):
 class RecipeUser(RecipeAux):
     user = models.ForeignKey(
         User, on_delete=models.CASCADE,
-        verbose_name='Пользователь'
+        verbose_name='Пользователь',
+
     )
 
     class Meta:
