@@ -3,7 +3,6 @@ from django.http import HttpResponse
 from django_filters.rest_framework import DjangoFilterBackend
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
-
 from djoser.views import UserViewSet as DjoserUserViewSet
 from reportlab.lib.pagesizes import A4
 from reportlab.pdfbase import pdfmetrics
