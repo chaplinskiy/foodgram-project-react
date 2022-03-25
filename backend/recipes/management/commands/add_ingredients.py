@@ -7,7 +7,7 @@ from recipes.models import Ingredient
 
 class Command(BaseCommand):
     """Ingredients loader."""
-    help = "Load ingredients from csv file."
+    help = "Load ingredients from csv file (should be in '/backend/data')."
 
     def handle(self, *args, **kwargs):
         with open(

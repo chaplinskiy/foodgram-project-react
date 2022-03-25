@@ -11,6 +11,35 @@ from users.models import Subscription
 User = get_user_model()
 
 
+class CustomUserSerializer(UserSerializer):
+    is_subscribed = serializers.SerializerMethodField(read_only=True)
+
+    class Meta:
+        model = User
+        fields = [
+            'email',
+            'id',
+            'username',
+            'first_name',
+            'last_name',
+            'is_subscribed'
+        ]
+
+    def get_is_subscribed(self, obj):
+        request = self.context.get('request')
+        if not request or request.user.is_anonymous:
+            return False
+        user = request.user
+        return Subscription.objects.filter(
+            following=obj,
+            follower=user
+        ).exists()
+
+
+class CustomUserCreateSerializer(UserCreateSerializer):
+    pass
+
+
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tag
@@ -55,7 +84,7 @@ class AddIngredientSerializer(serializers.ModelSerializer):
 
 
 class RecipeListSerializer(serializers.ModelSerializer):
-    author = UserSerializer(read_only=True)
+    author = CustomUserSerializer(read_only=True)
     tags = TagSerializer(read_only=True, many=True)
     ingredients = RecipeIngredientAmountSerializer(
         source='recipeingredientamount_set',
@@ -330,32 +359,3 @@ class SubscriptionCreateDeleteSerializer(serializers.ModelSerializer):
         if data['follower'] == data['following']:
             raise serializers.ValidationError('Self-subscription prohibited')
         return data
-
-
-class CustomUserSerializer(UserSerializer):
-    is_subscribed = serializers.SerializerMethodField(read_only=True)
-
-    class Meta:
-        model = User
-        fields = [
-            'email',
-            'id',
-            'username',
-            'first_name',
-            'last_name',
-            'is_subscribed'
-        ]
-
-    def get_is_subscribed(self, obj):
-        request = self.context.get('request')
-        if not request or request.user.is_anonymous:
-            return False
-        user = request.user
-        return Subscription.objects.filter(
-            following=obj,
-            follower=user
-        ).exists()
-
-
-class CustomUserCreateSerializer(UserCreateSerializer):
-    pass

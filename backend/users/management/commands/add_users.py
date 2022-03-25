@@ -7,7 +7,7 @@ from users.models import User
 
 class Command(BaseCommand):
     """Users loader."""
-    help = "Load users from csv file."
+    help = "Load users from csv file (should be in '/backend/data')."
 
     def handle(self, *args, **kwargs):
         with open(

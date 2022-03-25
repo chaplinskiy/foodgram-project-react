@@ -7,7 +7,7 @@ from recipes.models import Tag
 
 class Command(BaseCommand):
     """Tags loader."""
-    help = "Load tags from csv file."
+    help = "Load tags from csv file (should be in '/backend/data')."
 
     def handle(self, *args, **kwargs):
         with open('data/tags.csv', 'r', encoding='UTF-8') as tags:

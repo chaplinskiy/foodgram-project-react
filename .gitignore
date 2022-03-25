@@ -153,3 +153,6 @@ users_recipes.numbers
 
 # local migrations backups
 backup/
+
+# csv files for db prepopulation
+*.csv

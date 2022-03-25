@@ -16,7 +16,7 @@ users = User.objects.all().order_by('?')
 
 class Command(BaseCommand):
     """Recipes loader."""
-    help = "Load recipes from csv file."
+    help = "Load recipes from csv file (should be in '/backend/data')."
 
     def handle(self, *args, **kwargs):
         with open(
